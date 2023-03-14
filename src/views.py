@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 
 from src.forms import *
+from src.models import Task
 
 
 # Create your views here.
@@ -12,6 +13,7 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     context.update({"username": username})
+    context.update({"to_do": Task.objects.all()})
     return render(request, 'index.html', context=context)
 
 
