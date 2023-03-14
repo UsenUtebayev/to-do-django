@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+</head>
+<body>
+
+<div>
+    <p>Welcome to TODO list on django! |
+        {% if username %}
+            {{ username }}
+        {% else %}
+            Вы не авторизованы
+        {% endif %}
+    </p>
+</div>
+
+<div>
+    <a href="{% url 'login' %}">Вход</a>
+    {% if username %}
+    <a href="{% url 'logout' %}">Выход</a>
+    {% else %}
+    <a href="{% url 'registration' %}">Зарегистрироваться</a>
+    {% endif %}
+</div>
+
+<div>
+    {% for i in to_do %}
+        <h4>{{ i.category }} : {{ i.name }}</h4>
+        <p>{{ i.description }}</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
