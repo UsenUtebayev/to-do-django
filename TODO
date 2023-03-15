@@ -7,3 +7,4 @@ General:
  6. Почикать nginx или gunicorn по приколу т.к не понятно
  7. Docker и docker compose потестить что это вообще такое.
  8. Потрогать celery или RabbitMq
+ 9. Пробовать commit conventional
