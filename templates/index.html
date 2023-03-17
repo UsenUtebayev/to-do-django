@@ -33,7 +33,7 @@
         <form action="{% url 'delete-task' i.id %} ">
             {% csrf_token %}
             <input type="submit" value="Delete!">
-        </form>>
+        </form>
     {% endfor %}
 </div>
 

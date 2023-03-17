@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 
 from src.forms import *
@@ -64,5 +65,7 @@ def add_task(request):
 
 
 def delete_task(request, pk):
+    if request.user.pk != Task.objects.get(pk=pk).user_id:
+        raise PermissionDenied("Вы не можете удалять чужие таски")
     Task.objects.filter(pk=pk).update(disabled=1)
     return redirect('index')
