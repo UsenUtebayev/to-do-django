@@ -13,7 +13,7 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     context.update({"username": username})
-    context.update({"to_do": Task.objects.filter(user=request.user.pk)})
+    context.update({"to_do": Task.objects.filter(user=request.user.pk).exclude(disabled=1)})
     return render(request, 'index.html', context=context)
 
 
@@ -61,3 +61,8 @@ def add_task(request):
         messages.error(request, 'Что то пошло не так')
     form = TaskCreationForm()
     return render(request, 'add-task.html', {"form": form})
+
+
+def delete_task(request, pk):
+    Task.objects.filter(pk=pk).update(disabled=1)
+    return redirect('index')

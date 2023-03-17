@@ -29,7 +29,11 @@
     <a href="{% url 'add-task' %}">Добавить задачу</a>
     {% for i in to_do %}
         <h4>{{ i.category }} : {{ i.name }}</h4>
-        <p>{{ i.description }}</p>
+        <p>{{ i.description }}
+        <form action="{% url 'delete-task' i.id %} ">
+            {% csrf_token %}
+            <input type="submit" value="Delete!">
+        </form>>
     {% endfor %}
 </div>
 
