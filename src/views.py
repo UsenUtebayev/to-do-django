@@ -13,7 +13,7 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     context.update({"username": username})
-    context.update({"to_do": Task.objects.all()})
+    context.update({"to_do": Task.objects.filter(user=request.user.pk)})
     return render(request, 'index.html', context=context)
 
 
