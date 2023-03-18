@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Вход</title>
-</head>
-<body>
+{% extends 'forms.html' %}
+{% block content %}
 <h1>Вход</h1>
 <form method="post">
     <a href="{% url 'index' %}">На главную</a>
@@ -12,5 +7,4 @@
     {{ form }}
     <button type="submit">Войти</button>
 </form>
-</body>
-</html>
+{% endblock %}

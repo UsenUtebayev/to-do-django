@@ -14,6 +14,7 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     context.update({"username": username})
+    context.update({"title": "Главная!"})
     context.update({"to_do": Task.objects.filter(user=request.user.pk).exclude(disabled=1)})
     return render(request, 'index.html', context=context)
 
@@ -30,7 +31,7 @@ def register(request):
             messages.error(request, 'Ошибка регистраций')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {"form": form})
+    return render(request, 'register.html', {"form": form, "title": "Регистрация!"})
 
 
 def login_user(request):
@@ -42,7 +43,7 @@ def login_user(request):
             return redirect('index')
     else:
         form = UserLoginForm
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, "title": "Вход!"})
 
 
 def logout_user(request):
@@ -51,17 +52,19 @@ def logout_user(request):
 
 
 def add_task(request):
-    if request.method == 'POST':
-        form = TaskCreationForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            messages.success(request, "Задача добавлена успешно!")
-            return redirect('add-task')
-    else:
-        messages.error(request, 'Что то пошло не так')
-    form = TaskCreationForm()
-    return render(request, 'add-task.html', {"form": form})
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = TaskCreationForm(request.POST)
+            if form.is_valid():
+                form.instance.user = request.user
+                form.save()
+                messages.success(request, "Задача добавлена успешно!")
+                return redirect('add-task')
+        else:
+            messages.error(request, 'Что то пошло не так')
+        form = TaskCreationForm()
+        return render(request, 'add-task.html', {"form": form, "title": "Добавить задачу"})
+    return redirect('index')
 
 
 def delete_task(request, pk):
