@@ -17,11 +17,12 @@
 </div>
 
 <div>
-    <a href="{% url 'login' %}">Вход</a>
+
     {% if username %}
-    <a href="{% url 'logout' %}">Выход</a>
+        <a href="{% url 'logout' %}">Выход</a>
     {% else %}
-    <a href="{% url 'registration' %}">Зарегистрироваться</a>
+        <a href="{% url 'login' %}">Вход</a>
+        <a href="{% url 'registration' %}">Зарегистрироваться</a>
     {% endif %}
 </div>
 
