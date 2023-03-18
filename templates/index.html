@@ -23,9 +23,9 @@
         {% if username %}
             <a href="{% url 'add-task' %}">Добавить задачу</a>
         {% else %}
-            <p>Чтобы добавлять задачи нужно быть авторизованным!</p>
+            <p> Чтобы добавлять задачи нужно быть авторизованным!</p>
         {% endif %}
-        {% for i in to_do %}
+        {% for i in page_obj %}
             <h4>{{ i.category }} : {{ i.name }}</h4>
             <p>{{ i.description }}
             <form action="{% url 'delete-task' i.id %} ">
@@ -33,5 +33,22 @@
                 <input type="submit" value="Delete!">
             </form>
         {% endfor %}
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+        </div>
     </div>
 {% endblock %}

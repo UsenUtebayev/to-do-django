@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from src.forms import *
@@ -13,9 +14,14 @@ def index(request):
     username = None
     if request.user.is_authenticated:
         username = request.user.username
+
+    tasks = Task.objects.filter(user=request.user.pk).exclude(disabled=1)
+    paginator = Paginator(tasks, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context.update({"username": username})
     context.update({"title": "Главная!"})
-    context.update({"to_do": Task.objects.filter(user=request.user.pk).exclude(disabled=1)})
+    context.update({'page_obj': page_obj})
     return render(request, 'index.html', context=context)
 
 
