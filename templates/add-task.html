@@ -1,7 +1,6 @@
 {% extends 'forms.html' %}
 {% block content %}
 <form method="post">
-    <a href="{% url 'index' %}">На главную</a>
     {% csrf_token %}
     {{ form }}
     <button type="submit">Добавить.</button>

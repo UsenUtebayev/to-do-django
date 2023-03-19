@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} {{ title }} {% endblock %}
 {% block content %}
-    <div>
-        {% if username %}
-            <a href="{% url 'logout' %}">Выход</a>
-        {% else %}
-            <a href="{% url 'login' %}">Вход</a>
-            <a href="{% url 'registration' %}">Зарегистрироваться</a>
-        {% endif %}
-    </div>
 
     <div>
         {% if username %}

@@ -2,7 +2,6 @@
 {% block content %}
 <h1>Регистрация</h1>
 <form method="post">
-    <a href="{% url 'index' %}">На главную</a>
     {% csrf_token %}
     {{ form }}
     <button type="submit">Зарегистрироваться</button>

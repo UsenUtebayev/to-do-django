@@ -10,18 +10,12 @@ from src.models import Task
 
 # Create your views here.
 def index(request):
-    context = {}
-    username = None
-    if request.user.is_authenticated:
-        username = request.user.username
 
     tasks = Task.objects.filter(user=request.user.pk).exclude(disabled=1)
     paginator = Paginator(tasks, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context.update({"username": username})
-    context.update({"title": "Главная!"})
-    context.update({'page_obj': page_obj})
+    context = {"title": "Главная!", 'page_obj': page_obj}
     return render(request, 'index.html', context=context)
 
 
