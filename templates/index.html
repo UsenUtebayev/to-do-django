@@ -2,16 +2,6 @@
 {% block title %} {{ title }} {% endblock %}
 {% block content %}
     <div>
-        <p>Welcome to TODO list on django! |
-            {% if username %}
-                {{ username }}
-            {% else %}
-                Вы не авторизованы
-            {% endif %}
-        </p>
-    </div>
-    <div>
-
         {% if username %}
             <a href="{% url 'logout' %}">Выход</a>
         {% else %}
@@ -19,6 +9,7 @@
             <a href="{% url 'registration' %}">Зарегистрироваться</a>
         {% endif %}
     </div>
+
     <div>
         {% if username %}
             <a href="{% url 'add-task' %}">Добавить задачу</a>
@@ -33,6 +24,9 @@
                 <input type="submit" value="Delete!">
             </form>
         {% endfor %}
+    </div>
+
+    {% if username %}
         <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -50,5 +44,5 @@
         {% endif %}
     </span>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
