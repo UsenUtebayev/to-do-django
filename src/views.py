@@ -1,21 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from src.forms import *
-from src.models import Task
+from src.models import *
 
 
 # Create your views here.
 def index(request):
-
     tasks = Task.objects.filter(user=request.user.pk).exclude(disabled=1)
-    paginator = Paginator(tasks, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {"title": "Главная!", 'page_obj': page_obj}
+    cats = Category.objects.all()
+    context = {"title": "Главная!", "cats": cats}
     return render(request, 'index.html', context=context)
 
 
