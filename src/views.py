@@ -11,7 +11,7 @@ from src.models import *
 def index(request):
     tasks = Task.objects.filter(user=request.user.pk).exclude(disabled=1)
     cats = Category.objects.all()
-    context = {"title": "Главная!", "cats": cats}
+    context = {"title": "Главная!", "cats": cats, 'tasks': tasks}
     return render(request, 'index.html', context=context)
 
 

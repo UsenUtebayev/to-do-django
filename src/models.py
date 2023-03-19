@@ -1,12 +1,17 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class Category(models.Model):
     name = models.CharField(max_length=127)
+    importance = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)])
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['importance']
 
 
 class Task(models.Model):
