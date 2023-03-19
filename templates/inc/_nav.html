@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Выход</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add-task' %}">Добавить задачу</a>
+                </li>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Вход</a>
@@ -22,7 +25,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'registration' %}">Зарегистрироваться</a>
                 </li>
-
             {% endif %}
         </ul>
     </div>

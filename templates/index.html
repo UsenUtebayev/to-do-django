@@ -3,11 +3,7 @@
 {% block content %}
 
     <div>
-        {% if username %}
-            <a href="{% url 'add-task' %}">Добавить задачу</a>
-        {% else %}
-            <p> Чтобы добавлять задачи нужно быть авторизованным!</p>
-        {% endif %}
+
         {% for i in page_obj %}
             <h4>{{ i.category }} : {{ i.name }}</h4>
             <p>{{ i.description }}
