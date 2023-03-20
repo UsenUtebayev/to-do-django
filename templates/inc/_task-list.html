@@ -1,25 +1,28 @@
-<div class="d-flex mt-3">
+<div class="container-fluid d-flex flex-row">
     {% for category, tasks in tasks.items %}
-        <div>
-            {% if tasks %}
-                {{ category }}
-            {% endif %}
-            {% for task in tasks %}
-                <div class="card m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ task.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ task.created_at }}</h6>
-                        <p class="card-text">{{ task.description }}</p>
-
-                        <form action="{% url 'delete-task' task.id %} ">
-                            {% csrf_token %}
-                            <button type="submit">Delete!</button>
-                        </form>
+        <div class="d-flex flex-column m-2">
+            <div class="d-flex justify-content-center">
+                {% if tasks %}
+                    <h5>{{ category }}</h5>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-column">
+                {% for task in tasks %}
+                    <div class="card m-2" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ task.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ task.created_at }}</h6>
+                            <p class="card-text">{{ task.description }}</p>
+                            <form action="{% url 'delete-task' task.id %} ">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-success btn-sm container-fluid" type="submit">Отметить
+                                    выполненным!
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     {% endfor %}
 </div>
-
-
