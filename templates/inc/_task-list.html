@@ -1,18 +1,27 @@
+<div class="d-flex mt-3">
     {% for cat in cats %}
-            <h6>{{ cat }}</h6>
+        <div>
+            <div class="d-flex justify-content-center">
+                <h6>{{ cat }}</h6>
+            </div>
             {% for task in tasks %}
                 {% if task.category == cat %}
+
                     <div class="card m-2" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">{{ task.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ task.category }}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ task.created_at }}</h6>
                             <p class="card-text">{{ task.description }}</p>
+
                             <form action="{% url 'delete-task' task.id %} ">
                                 {% csrf_token %}
-                                <input type="submit" value="Delete!">
+                                <button type="submit">Delete!</button>
                             </form>
                         </div>
                     </div>
                 {% endif %}
+
             {% endfor %}
+        </div>
     {% endfor %}
+</div>
