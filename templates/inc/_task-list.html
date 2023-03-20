@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex flex-row">
+<div class="container-fluid d-flex flex-row flex-wrap">
     {% for category, tasks in tasks.items %}
         <div class="d-flex flex-column m-2">
             <div class="d-flex justify-content-center">
@@ -10,9 +10,9 @@
                 {% for task in tasks %}
                     <div class="card m-2" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ task.name }}</h5>
+                            <h5 class="card-title">{{ task.name | truncatechars:32 }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ task.created_at }}</h6>
-                            <p class="card-text">{{ task.description }}</p>
+                            <p class="card-text">{{ task.description | truncatechars:255}}</p>
                             <form action="{% url 'delete-task' task.id %} ">
                                 {% csrf_token %}
                                 <button class="btn btn-outline-success btn-sm container-fluid" type="submit">Отметить
