@@ -15,11 +15,33 @@
 </head>
 <body>
 {% include 'inc/_nav.html' %}
-<div class="wrapper d-flex justify-content-center ">
+<div class="wrapper d-flex justify-content-center flex-column">
     {% block content %}
     {% endblock %}
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-muted">© 2023 Ussen Utebayev</p>
+
+            <a href="/"
+               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="https://github.com/UsenUtebayev"
+                                        class="nav-link px-2 text-muted">Github</a></li>
+                <li class="nav-item"><a href="https://t.me/utebayevUssen" class="nav-link px-2 text-muted">Telegram</a>
+                </li>
+                <li class="nav-item"><a href="https://vk.com/handy228" class="nav-link px-2 text-muted">Vk</a></li>
+                <li class="nav-item"><a href="mailto:usenutebayev@gmail.com" class="nav-link px-2 text-muted">Hire
+                    me</a></li>
+            </ul>
+        </footer>
+    </div>
+
 </div>
 
 </body>
 <script src="{% static 'src/base/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'src/index/carousel.js' %}"></script>
 </html>
