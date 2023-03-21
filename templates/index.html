@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
-{% block title %} {{ title }} {% endblock %}
-{% block content %}
 
-    {% include 'inc/_task-list.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+{% block style %}
+    <link href="{% static 'src/index/index.css' %}" rel="stylesheet"> {% endblock %}
+{% block content %}
+    {% if username %}
+        {% include 'inc/_task-list.html' %}
+    {% else %}
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h3><br>Привет пользватель!<br/></h3>
+            <p>Это to-do app созданный 👨‍<a href="https://github.com/UsenUtebayev">Ussen Utebayev!</a></p>
+            <p>Для использвание и протестирование приложения пожалуйста зарегистрируйтесь!</p>
+        </div>
+
+    {% endif %}
 
 {% endblock %}
