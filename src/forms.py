@@ -2,7 +2,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea, TextInput, Select
 from django.forms.utils import ErrorList
 
 from src.models import Task
@@ -85,3 +85,8 @@ class TaskCreationForm(ModelForm):
     class Meta:
         model = Task
         fields = ['name', 'description', 'category']
+        widgets = {
+            'name': TextInput(attrs={"class": "form-control"}),
+            'description': Textarea(attrs={"class": "form-control", 'cols': 10}),
+            'category': Select(attrs={"class": "form-control"})
+        }

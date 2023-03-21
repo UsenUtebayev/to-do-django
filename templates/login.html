@@ -2,7 +2,6 @@
 {% block form %}
     <h3>Вход</h3>
     <form method="post">
-
         {% csrf_token %}
         {{ form }}
         <button class="btn btn-outline-success mt-2" type="submit">Войти</button>

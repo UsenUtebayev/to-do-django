@@ -81,6 +81,6 @@ def change_password(request):
                 return redirect('logout')
 
         form = ChangePasswordForm(user=request.user)
-        return render(request, 'change-password.html', context={"form": form})
+        return render(request, 'change-password.html', context={"form": form, "title": "Смена пароля"})
     else:
         raise PermissionDenied("Нужно быть авторизованным!")
