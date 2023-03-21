@@ -1,11 +1,12 @@
 {% extends 'forms.html' %}
-{% block content %}
-    <h1>Вход</h1>
-    <div class="mb-3 row">
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button class="btn btn-outline-success mt-2" type="submit">Войти</button>
-        </form>
-    </div>
+{% block form %}
+    <h3>Вход</h3>
+    <form method="post">
+
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-outline-success mt-2" type="submit">Войти</button>
+    </form>
+    <a class="mt-2" href="{% url 'registration' %}">Возможно хотите создать аккаунт?</a>
+
 {% endblock %}
