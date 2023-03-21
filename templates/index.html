@@ -11,11 +11,8 @@
     {% else %}
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h3><br>Привет пользватель!<br/></h3>
-            <p>Это to-do app созданный 👨‍<a href="https://github.com/UsenUtebayev">Ussen Utebayev!</a></p>
-            <p>
-                Для использвание и протестирование приложения пожалуйста зарегистрируйтесь!
-                Ниже скрины сайта при разработке
-            </p>
+            <p class="p-2">Это to-do app созданный 👨‍<a href="https://github.com/UsenUtebayev">Ussen Utebayev!</a> Для использвание и протестирование приложения пожалуйста зарегистрируйтесь!
+                Ниже скрины сайта при разработке</p>
 
             <div class="container-fluid d-flex justify-content-center">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -56,5 +53,6 @@
 
         </div>
     {% endif %}
+    <script src="{% static 'src/index/carousel.js' %}"></script>
 
 {% endblock %}

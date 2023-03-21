@@ -70,3 +70,17 @@ def delete_task(request, pk):
         raise PermissionDenied("Вы не можете удалять чужие таски")
     Task.objects.filter(pk=pk).update(disabled=1)
     return redirect('index')
+
+
+def change_password(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = ChangePasswordForm(data=request.POST, user=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('logout')
+
+        form = ChangePasswordForm(user=request.user)
+        return render(request, 'change-password.html', context={"form": form})
+    else:
+        raise PermissionDenied("Нужно быть авторизованным!")
