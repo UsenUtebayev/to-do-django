@@ -11,6 +11,8 @@
     <meta name="theme-color" content="#4285f4"/>
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <link href="{% static "src/base/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'src/icons/favicon.ico' %}">
+    <link rel="apple-touch-icon" {% static 'src/icons/apple-touch-icon.png' %}/>
     {% block style %}
     {% endblock %}
     <link href="{% static 'src/base/base.css' %}" rel="stylesheet">
