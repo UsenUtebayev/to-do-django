@@ -9,11 +9,14 @@ from src.models import *
 
 # Create your views here.
 def index(request):
-    category = Category.objects.all()
-    tasks = {}
-    for cats in category:
-        tasks.update({cats: Task.objects.filter(user=request.user.pk, category=cats).exclude(disabled=1)})
-    context = {"title": "Главная!", "cats": category, 'tasks': tasks}
+    context = {"title": "Главная!"}
+    if request.user.is_authenticated:
+        categories = Category.objects.all()
+        context_tasks = {}
+        for cat in categories:
+            context_tasks.update({cat: Task.objects.filter(category=cat.pk, user=request.user.pk, disabled=False)
+                                  .select_related('category', 'user')})
+        context.update({"cats": categories, 'tasks': context_tasks})
     return render(request, 'index.html', context=context)
 
 

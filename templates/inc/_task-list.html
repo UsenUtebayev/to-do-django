@@ -1,9 +1,9 @@
 <div class="container-fluid d-flex flex-row flex-wrap">
-    {% for category, tasks in tasks.items %}
+    {% for cats, tasks in tasks.items %}
         <div class="d-flex flex-column m-2">
             <div class="d-flex justify-content-center">
                 {% if tasks %}
-                    <h5>{{ category }}</h5>
+                    <h5>{{ cats.name }}</h5>
                 {% endif %}
             </div>
             <div class="d-flex flex-column">

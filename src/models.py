@@ -8,7 +8,7 @@ class Category(models.Model):
     importance = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)])
 
     def __str__(self):
-        return self.name
+        return f"{self.name}, рейтинг важности:{self.importance}"
 
     class Meta:
         ordering = ['importance']
@@ -28,3 +28,4 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['created_at']
+
