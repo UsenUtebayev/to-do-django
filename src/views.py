@@ -2,12 +2,14 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import cache_page
 
 from src.forms import *
 from src.models import *
 
 
 # Create your views here.
+@cache_page(60 * 15)
 def index(request):
     context = {"title": "Главная!"}
     if request.user.is_authenticated:
@@ -15,7 +17,7 @@ def index(request):
         context_tasks = {}
         for cat in categories:
             context_tasks.update({cat: Task.objects.filter(category=cat.pk, user=request.user.pk, disabled=False)
-                                  .select_related('category', 'user')})
+                                 .select_related('category', 'user')})
         context.update({"cats": categories, 'tasks': context_tasks})
     return render(request, 'index.html', context=context)
 
