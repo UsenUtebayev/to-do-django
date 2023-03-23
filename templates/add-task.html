@@ -1,9 +1,12 @@
 {% extends 'forms.html' %}
 {% block form %}
+    {% load static %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <h3>Добавить задачу!</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <button class="btn btn-outline-success mt-2" type="submit">Добавит задачу</button>
     </form>
 {% endblock %}

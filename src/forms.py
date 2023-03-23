@@ -1,8 +1,9 @@
+from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import ModelForm, Textarea, TextInput, Select
+from django.forms import ModelForm, TextInput, Select
 from django.forms.utils import ErrorList
 
 from src.models import Task
@@ -87,6 +88,6 @@ class TaskCreationForm(ModelForm):
         fields = ['name', 'description', 'category']
         widgets = {
             'name': TextInput(attrs={"class": "form-control"}),
-            'description': Textarea(attrs={"class": "form-control", 'cols': 10}),
+            'description': CKEditorWidget(),
             'category': Select(attrs={"class": "form-control"})
         }
