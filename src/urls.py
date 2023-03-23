@@ -1,6 +1,6 @@
 from django.urls import path
 
-from src.views import *
+from src.views import index, register, login_user, logout_user, add_task, delete_task, change_password
 
 urlpatterns = [
     path('', index, name='index'),

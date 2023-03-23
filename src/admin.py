@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from src.models import *
+from src.models import Task, Category
 
 
 # Register your models here.

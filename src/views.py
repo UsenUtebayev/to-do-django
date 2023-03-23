@@ -2,10 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.views.decorators.cache import cache_page
 
-from src.forms import *
-from src.models import *
+from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm
+from src.models import Task, Category
 
 
 # Create your views here.
