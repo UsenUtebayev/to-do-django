@@ -9,7 +9,6 @@ from src.models import *
 
 
 # Create your views here.
-@cache_page(60 * 15)
 def index(request):
     context = {"title": "Главная!"}
     if request.user.is_authenticated:
