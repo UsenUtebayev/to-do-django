@@ -79,16 +79,12 @@ def delete_task(request, pk):
 
 @login_required()
 def change_password(request):
-    if request.method == 'POST':
-        form = ChangePasswordForm(data=request.POST, user=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('logout')
+    form = ChangePasswordForm(data=request.POST, user=request.user)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('logout')
 
-        form = ChangePasswordForm(user=request.user)
-        return render(request, 'change-password.html', context={"form": form, "title": "Смена пароля"})
-    else:
-        raise PermissionDenied("Нужно быть авторизованным!")
+    return render(request, 'change-password.html', context={"form": form, "title": "Смена пароля"})
 
 
 def get_task_detail(request, pk):
