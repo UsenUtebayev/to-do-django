@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+    {{ task_item.name }}
+{% endblock %}
 {% load static %}
 {% block content %}
     <div class="d-flex w-75 flex-column container-fluid align-content-center mt-3">
