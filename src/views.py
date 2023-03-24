@@ -62,7 +62,7 @@ def add_task(request):
                 messages.success(request, "Задача добавлена успешно!")
                 return redirect('add-task')
         else:
-            messages.error(request, 'Что то пошло не так')
+            messages.error(request, 'Не получилось добавть задачу')
         form = TaskCreationForm()
         return render(request, 'add-task.html', {"form": form, "title": "Добавить задачу"})
     return redirect('index')
