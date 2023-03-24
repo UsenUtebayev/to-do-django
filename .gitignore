@@ -319,4 +319,4 @@ cython_debug/
 .idea/
 
 request_cache
-static
+/static
