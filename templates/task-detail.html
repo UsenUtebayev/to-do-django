@@ -8,14 +8,20 @@
         <h4><strong>{{ task_item.name }}</strong></h4>
         <p>{{ task_item.created_at | date }}</p>
         <p>{{ task_item.description | safe }}</p>
-        <form class="w-25" action="{% url 'delete-task' task_item.id %} ">
-            {% csrf_token %}
-            <button class="btn btn-outline-success btn-sm container-fluid" type="submit">Отметить
-                выполненным!
-            </button>
-        </form>
+        <div class="d-flex">
+            <form class="w-25 mr-3" action="{% url 'delete-task' task_item.id %} ">
+                {% csrf_token %}
+                <button class="btn btn-outline-success btn-sm container-fluid" type="submit">Отметить
+                    выполненным!
+                </button>
+            </form>
+            <form class="w-25" action="{% url 'edit-task' task_item.id %} ">
+                {% csrf_token %}
+                <button class="btn btn-outline-info btn-sm container-fluid" type="submit">Изменить задачу
+                </button>
+            </form>
+        </div>
     </div>
-
 {% endblock %}
 {% block scripts %}
     <script src={% static 'src/index/img_containing.js' %}></script>

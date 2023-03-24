@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
 from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm
@@ -53,19 +55,17 @@ def logout_user(request):
 
 
 def add_task(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = TaskCreationForm(request.POST)
-            if form.is_valid():
-                form.instance.user = request.user
-                form.save()
-                messages.success(request, "Задача добавлена успешно!")
-                return redirect('add-task')
-        else:
-            messages.error(request, 'Не получилось добавть задачу')
-        form = TaskCreationForm()
-        return render(request, 'add-task.html', {"form": form, "title": "Добавить задачу"})
-    return redirect('index')
+    if request.method == 'POST':
+        form = TaskCreationForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            messages.success(request, "Задача добавлена успешно!")
+            return redirect('index')
+    else:
+        messages.error(request, 'Не получилось добавть задачу')
+    form = TaskCreationForm()
+    return render(request, 'add-task.html', {"form": form, "title": "Добавить задачу"})
 
 
 def delete_task(request, pk):
@@ -77,13 +77,13 @@ def delete_task(request, pk):
     return redirect('index')
 
 
+@login_required()
 def change_password(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = ChangePasswordForm(data=request.POST, user=request.user)
-            if form.is_valid():
-                form.save()
-                return redirect('logout')
+    if request.method == 'POST':
+        form = ChangePasswordForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('logout')
 
         form = ChangePasswordForm(user=request.user)
         return render(request, 'change-password.html', context={"form": form, "title": "Смена пароля"})
@@ -96,3 +96,21 @@ def get_task_detail(request, pk):
     if task_item.user.pk == request.user.pk:
         return render(request, 'task-detail.html', context={"task_item": task_item})
     raise PermissionDenied("Вы не можете просматривать чужие таски")
+
+
+@login_required
+def edit_task(request, pk):
+    if pk:
+        task = get_object_or_404(Task, pk=pk)
+        if task.user != request.user:
+            return HttpResponseForbidden()
+    else:
+        task = Task(user=request.user)
+
+    form = TaskCreationForm(request.POST or None, instance=task)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect('index')
+
+    context = {'form': form, "title": "Редактировать задачу"}
+    return render(request, 'edit-task.html', context)
