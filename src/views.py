@@ -93,4 +93,6 @@ def change_password(request):
 
 def get_task_detail(request, pk):
     task_item = get_object_or_404(Task.objects.filter(disabled=False), pk=pk)
-    return render(request, 'task-detail.html', context={"task_item": task_item})
+    if task_item.user.pk == request.user.pk:
+        return render(request, 'task-detail.html', context={"task_item": task_item})
+    raise PermissionDenied("Вы не можете просматривать чужие таски")
