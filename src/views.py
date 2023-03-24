@@ -38,12 +38,11 @@ def register(request):
 
 
 def login_user(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('index')
+    form = UserLoginForm(data=request.POST)
+    if request.method == 'POST' and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        return redirect('index')
     else:
         form = UserLoginForm
     return render(request, 'login.html', {'form': form, "title": "Вход!"})
