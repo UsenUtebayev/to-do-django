@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm
 from src.models import Task, Category
@@ -87,3 +87,8 @@ def change_password(request):
         return render(request, 'change-password.html', context={"form": form, "title": "Смена пароля"})
     else:
         raise PermissionDenied("Нужно быть авторизованным!")
+
+
+def get_task_detail(request, pk):
+    task_item = get_object_or_404(Task, pk=pk)
+    return render(request, 'task-detail.html', context={"task_item": task_item})
