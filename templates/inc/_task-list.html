@@ -22,9 +22,11 @@
                                     выполненным!
                                 </button>
                             </form>
-                            <button class="btn btn-outline-info btn mt-2 container-fluid"><a href="{% url 'task-detail' task.id %}">
-                                Посмотреть детальнее
-                            </a></button>
+                            <form action="{% url 'task-detail' task.id %} ">
+                                <button class="btn mt-1 btn-outline-info btn-sm container-fluid" type="submit">
+                                    Посмотреть детальнее
+                                </button>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
