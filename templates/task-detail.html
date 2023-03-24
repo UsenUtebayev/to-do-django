@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div class="d-flex flex-column container-fluid align-content-center mt-3">
-        <h1>{{ task_item.name }}</h1>
+    <div class="d-flex w-75 flex-column container-fluid align-content-center mt-3">
+        <h4><strong>{{ task_item.name }}</strong></h4>
         <p>{{ task_item.created_at | date }}</p>
         <p>{{ task_item.description | safe }}</p>
         <form class="w-25" action="{% url 'delete-task' task_item.id %} ">
@@ -11,7 +11,6 @@
                 выполненным!
             </button>
         </form>
-
     </div>
 
 {% endblock %}
