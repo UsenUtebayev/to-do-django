@@ -69,9 +69,11 @@ def add_task(request):
 
 
 def delete_task(request, pk):
-    if request.user.pk != Task.objects.get(pk=pk).user_id:
-        raise PermissionDenied("Вы не можете удалять чужие таски")
-    Task.objects.filter(pk=pk).update(disabled=1)
+    instance = get_object_or_404(Task, pk=pk)
+    if instance.user.pk != request.user.pk:
+        raise PermissionDenied('Вы не можете удалять чужие таски')
+    instance.disabled = True
+    instance.save(update_fields=['disabled'])
     return redirect('index')
 
 
@@ -90,5 +92,5 @@ def change_password(request):
 
 
 def get_task_detail(request, pk):
-    task_item = get_object_or_404(Task, pk=pk)
+    task_item = get_object_or_404(Task.objects.filter(disabled=False), pk=pk)
     return render(request, 'task-detail.html', context={"task_item": task_item})
