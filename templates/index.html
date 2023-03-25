@@ -7,9 +7,8 @@
     <link href="{% static 'src/index/index.css' %}" rel="stylesheet"> {% endblock %}
 {% block content %}
     {% if username %}
-        {% include 'inc/_task-list.html' %}
+        {% include 'inc/_task-list-carousel.html' %}
     {% else %}
         {% include 'inc/_hello.html' %}
     {% endif %}
 {% endblock %}
-

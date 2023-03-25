@@ -1,3 +1,4 @@
+
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm, CategoryCreationForm
 from src.models import Task, Category
+from src.service import divide_dict_by_3
 
 
 def index(request):
@@ -15,9 +17,14 @@ def index(request):
         categories = Category.objects.all()
         context_tasks = {}
         for cat in categories:
-            context_tasks.update({cat: Task.objects.filter(category=cat.pk, user=request.user.pk, disabled=False)
-                                 .select_related('category', 'user')})
-        context.update({"cats": categories, 'tasks': context_tasks})
+            context_tasks.update({
+                cat: Task.objects
+                .filter(category=cat.pk, user=request.user.pk, disabled=False)
+                .select_related('category', 'user')
+            })
+        list_of_tasks = divide_dict_by_3(context_tasks)
+        context.update({"cats": categories, 'tasks': list_of_tasks})
+
     return render(request, 'index.html', context=context)
 
 
