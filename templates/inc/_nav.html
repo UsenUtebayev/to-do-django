@@ -21,6 +21,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'change-password' %}">Сменить пароль</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add-task-category' %}">Добавит категорию задач</a>
+                </li>
+
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Вход</a>

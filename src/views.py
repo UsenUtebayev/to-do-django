@@ -5,11 +5,10 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
-from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm
+from src.forms import UserRegistrationForm, UserLoginForm, TaskCreationForm, ChangePasswordForm, CategoryCreationForm
 from src.models import Task, Category
 
 
-# Create your views here.
 def index(request):
     context = {"title": "Главная!"}
     if request.user.is_authenticated:
@@ -109,3 +108,15 @@ def edit_task(request, pk):
 
     context = {'form': form, "title": "Редактировать задачу"}
     return render(request, 'edit-task.html', context)
+
+
+@login_required
+def add_task_category(request):
+    form = CategoryCreationForm(request.POST)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "Категория добавлена успешно!")
+        return redirect('index')
+    else:
+        form = CategoryCreationForm()
+        return render(request, template_name='add-task-category.html', context={"form": form})

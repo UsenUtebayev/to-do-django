@@ -3,10 +3,10 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import ModelForm, TextInput, Select
+from django.forms import ModelForm, TextInput, Select, NumberInput
 from django.forms.utils import ErrorList
 
-from src.models import Task
+from src.models import Task, Category
 
 
 class CustomErrorList(ErrorList):
@@ -86,8 +86,27 @@ class TaskCreationForm(ModelForm):
     class Meta:
         model = Task
         fields = ['name', 'description', 'category']
+        labels = {
+            "name": "Название задачи",
+            "description": 'Описание задачи',
+            "category": 'Категория задачи'
+        }
         widgets = {
             'name': TextInput(attrs={"class": "form-control"}),
             'description': CKEditorWidget(),
             'category': Select(attrs={"class": "form-control"})
+        }
+
+
+class CategoryCreationForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = "__all__"
+        labels = {
+            "name": "Название категорий",
+            "importance": 'Рейтинг важности'
+        }
+        widgets = {
+            'name': TextInput(attrs={"class": "form-control"}),
+            'importance': NumberInput(attrs={"class": "form-control", "max": 10, "min": 0})
         }

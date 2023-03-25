@@ -6,7 +6,7 @@
     <h3>Добавить задачу!</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <button class="btn btn-outline-success mt-2" type="submit">Добавит задачу</button>
     </form>
 {% endblock %}
