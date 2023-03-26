@@ -15,9 +15,9 @@ load_dotenv(find_dotenv())
 
 SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 # Application definition
 
@@ -128,3 +128,4 @@ CKEDITOR_CONFIGS = {
         'width': "auto",
     },
 }
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
